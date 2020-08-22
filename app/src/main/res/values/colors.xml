@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#344955</color>
+    <color name="colorPrimaryDark">#232F34</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="secColorAccent">#F9AA33</color>
+    <color name="backgroundFragment">#4A6579</color>
+    <color name="background_color">#0e153a</color>
+    <color name="stroke_color">#22d1ee</color>
+    <color name="palette1">#0e153a</color>
+</resources>
