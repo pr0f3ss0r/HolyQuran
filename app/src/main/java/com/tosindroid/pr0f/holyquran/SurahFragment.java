@@ -28,9 +28,7 @@ public class SurahFragment extends Fragment {
     View view;
     int num;
     SurahFragmentAdapter adapter;
-    private List<String> surahs;
-    private List<String> pageNumber;
-    private List<String> chapterNumber;
+    private ArrayList<Chapters> chapters;
 
 
     public final String[] surahNames = {"Al-Fatihah", "Al-Baqarah", "Al-'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah",
@@ -52,12 +50,43 @@ public class SurahFragment extends Fragment {
             "597", "597", "598", "598", "598", "599", "599", "599", "599", "600", "600", "600", "600", "601", "601", "601", "601"};
 
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.surah_fragment, container, false);
+        setHasOptionsMenu(true);
+        recyclerView = view.findViewById(R.id.rvSurah);
+
+
+        adapter = new SurahFragmentAdapter(this, getChapters());
+        gridLayoutManager = new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(adapter);
+        return view;
+    }
+
+    private ArrayList<Chapters> getChapters(){
+        chapters = new ArrayList<>();
+
+        for(int i = 0; i< surahNames.length; i++) {
+            Chapters chap = new Chapters();
+            chap.setSurahs(surahNames[i]);
+            chap.setPageNumber("Page " + surahPages[i]);
+            num = i + 1;
+            chap.setChapterNumber("Chp "+ num);
+            chapters.add(chap);
+        }
+        return chapters;
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.surah_fragment_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.surah_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setIconified(false);
+        searchView.setQueryHint("Search Surah");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -67,7 +96,7 @@ public class SurahFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
-               return false;
+                return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
@@ -89,64 +118,6 @@ public class SurahFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.surah_fragment, container, false);
-        setHasOptionsMenu(true);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rvSurah);
-        surahs = new ArrayList<>();
-        chapterNumber = new ArrayList<>();
-        pageNumber = new ArrayList<>();
-
-
-        for(int i = 0; i< surahNames.length; i++) {
-            surahs.add(surahNames[i]);
-            num = i + 1;
-            chapterNumber.add("Chp "+ num);
-            pageNumber.add("Page "+ surahPages[i]);
-
-
-
-            /*TextView text = new TextView(view.getContext());
-            text.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            text.setText(squares[i]);
-            m_ll.addView(text);
-            text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent(getActivity(), QuranViewActivity.class);
-                    myIntent.putExtra("fatir", 10);
-                    startActivity(myIntent);
-
-                }
-            });*/
-
-        }
-
-
-       /* TextView textView =(TextView) view.findViewById(R.id.textView);
-
-        textView.setText("Go to surah");
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), QuranViewActivity.class);
-                myIntent.putExtra("fatir", R.drawable.holy_quran_simple_arabic_435);
-                startActivity(myIntent);
-
-            }
-        });*/
-        adapter = new SurahFragmentAdapter(this, surahs, chapterNumber, pageNumber);
-        gridLayoutManager = new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(adapter);
-        return view;
-
-
-
-
-    }
     private void openDialogue() {
         GoToDialogue goToDialogue = new GoToDialogue();
         goToDialogue.show(getChildFragmentManager(), "Go to page");

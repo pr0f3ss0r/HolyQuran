@@ -19,25 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdapter.ViewHolder> implements Filterable {
     SurahFragment ctx;
-    List<String>  chapterName, chapterNumber, pageNumber;
-    List<String>  chapterNameFiltered;
+    List<Chapters> chapters, chaptersCopy;
     int pageToGo;
     private static final String TAG = "checkers";
 
 
 
 
-    public SurahFragmentAdapter(SurahFragment context, List<String> chapterName, List<String> chapterNumber, List<String> pageNumber) {
-        this.chapterName = chapterName;
-        this.chapterNumber = chapterNumber;
-        this.pageNumber = pageNumber;
+    public SurahFragmentAdapter(SurahFragment context, ArrayList<Chapters> chapters) {
         this.ctx = context;
+        this.chapters = chapters;
+        this.chaptersCopy = chapters;
 
-        chapterNameFiltered = new ArrayList<>(chapterName);
-
-        Log.d(TAG, chapterNameFiltered.toString());
+        Log.d(TAG, "performFiltering 0.1: "+chapters);
+        Log.d(TAG, "performFiltering 0.2: "+chaptersCopy);
 
 }
+
+
 
     @NonNull
         @Override
@@ -49,17 +48,15 @@ public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdap
 
         @Override
         public void onBindViewHolder (@NonNull ViewHolder holder,int position){
-            holder.chapterName.setText(chapterName.get(position));
-            holder.surahNumber.setText(chapterNumber.get(position));
-            holder.pageNumber.setText(pageNumber.get(position));
-
+            holder.chapterName.setText(chaptersCopy.get(position).getSurahs());
+            holder.surahNumber.setText(chaptersCopy.get(position).getChapterNumber());
+            holder.pageNumber.setText(chaptersCopy.get(position).getPageNumber());
         }
 
         @Override
         public int getItemCount () {
-            return chapterName.size();
+            return chaptersCopy.size();
             }
-
 
 
     @Override
@@ -69,51 +66,54 @@ public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdap
 
     private Filter filters = new Filter() {
         @Override
-
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<String> filteredList = new ArrayList<>();
-            if(constraint == null || constraint.length() == 0){
-                filteredList.addAll(chapterNameFiltered);
-            }else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for(String item: chapterNameFiltered){
-                    if(item.toLowerCase().contains(filterPattern)){
-                        Log.d(TAG, "performFiltering: "+item);
-                        filteredList.add(item);
+            FilterResults results = new FilterResults();
+
+            String filterPattern = constraint.toString().toLowerCase().trim();
+            Log.d(TAG, "performFiltering 2: "+chaptersCopy);
+            List<Chapters> filteredList = new ArrayList<>();
+            if(filterPattern == null || filterPattern.length() == 0){
+                results.count = chapters.size();
+                results.values = chapters;
+                Log.d(TAG, "performFiltering 2.5: "+chapters);
+                Log.d(TAG, "performFiltering 2.8: "+chaptersCopy);
+                Log.d(TAG, "performFiltering 2.9: "+results.values);
+            }else {
+                List<Chapters> filteredChapters = new ArrayList<>();
+                for (Chapters item: chapters){
+                    Log.d(TAG, "performFiltering 3: " +filteredChapters);
+                    if (item.getSurahs().toLowerCase().contains(filterPattern)){
+                        filteredChapters.add(item);
+                        Log.d(TAG, "performFiltering 3.2: " +filteredChapters);
                     }
+                    results.count = filteredChapters.size();
+                    results.values = filteredChapters;
                 }
             }
 
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            chapterName.clear();
-            Log.d(TAG, "cleared? "+chapterName + " "+ chapterNameFiltered);
-            chapterName.addAll((List<String>) results.values);
+            chaptersCopy = (ArrayList<Chapters>) results.values;
             notifyDataSetChanged();
         }
     };
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView chapterName;
-        TextView pageNumber;
         TextView surahNumber;
+        TextView pageNumber;
         CardView cardView;
 
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-                chapterName = itemView.findViewById(R.id.surahNameTextView);
-                surahNumber = itemView.findViewById(R.id.surahNumberTextView);
-                pageNumber = itemView.findViewById(R.id.pageNumberTextView);
-                cardView = itemView.findViewById(R.id.cardView);
+                this.chapterName = itemView.findViewById(R.id.surahNameTextView);
+                this.surahNumber = itemView.findViewById(R.id.surahNumberTextView);
+                this.pageNumber = itemView.findViewById(R.id.pageNumberTextView);
+                this.cardView = itemView.findViewById(R.id.cardView);
 
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -128,21 +128,11 @@ public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdap
                         myIntent.putExtra("fatir", pageToGo);
                         v.getContext().startActivity(myIntent);
 
-                       /* for (int i = 0; i < cardView.getChildCount(); i++){
-                            cardView.getChildAt(i);
-                            ViewGroup viewGroup = (ViewGroup) cardView.getChildAt(0);
-                            for(int j=0; j<viewGroup.getChildCount(); j++){
-                                String getName = ((TextView) viewGroup.getChildAt(j)).getText().toString();
-                                Log.d(TAG, getName);
-                            }
-                        }*/
-
-
-                        //String a = ctx.squares[0];
                     }
                 });
 
             }
         }
+
 
     }

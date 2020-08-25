@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Field;
 import androidx.annotation.NonNull;
@@ -36,7 +37,8 @@ public class QuranViewPagerAdapter extends RecyclerView.Adapter<QuranViewPagerAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.imageView.setImageResource(images[position]);
+            //holder.imageView.setImageResource(images[position]);
+            Picasso.get().load(images[position]).into(holder.imageView);
 
     }
 
@@ -82,6 +84,7 @@ public class QuranViewPagerAdapter extends RecyclerView.Adapter<QuranViewPagerAd
         images = new int[index];
         for (int i = 0; i < index; i++) {
             images[i] = temp.valueAt(i);
+
         }
     }
 }
