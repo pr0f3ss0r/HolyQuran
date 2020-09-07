@@ -8,4 +8,5 @@
     <color name="background_color">#0e153a</color>
     <color name="stroke_color">#22d1ee</color>
     <color name="palette1">#0e153a</color>
+    <color name="juzBackgroundColor">#040B2E</color>
 </resources>

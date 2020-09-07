@@ -12,6 +12,11 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/fav_menu"
+        android:icon="@drawable/ic_menu_bookmark1"
+        android:title="@string/fav"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/go_btn_menu"
         android:title="@string/go_to"
         app:showAsAction="ifRoom"/>

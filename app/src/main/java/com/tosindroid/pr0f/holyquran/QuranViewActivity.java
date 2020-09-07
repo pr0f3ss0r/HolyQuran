@@ -38,9 +38,16 @@ public class QuranViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuranViewActivity.this, About.class);
                 startActivity(intent);
                 return true;
+            case R.id.fav_menu:
+                addToFavorite();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void addToFavorite() {
+
     }
 
     private void openDialogue() {

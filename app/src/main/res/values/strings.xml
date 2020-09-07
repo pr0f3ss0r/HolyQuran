@@ -25,4 +25,5 @@
     <string name="aboutPage">This is the about page</string>
     <string name="surah_search">Search</string>
     <string name="juz_search">Search</string>
+    <string name="fav">Fav</string>
 </resources>
