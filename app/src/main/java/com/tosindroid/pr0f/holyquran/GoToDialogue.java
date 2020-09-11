@@ -28,6 +28,8 @@ public class GoToDialogue extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialogue_layout, null);
 
+
+
         builder.setView(view).setTitle("Go To Page")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

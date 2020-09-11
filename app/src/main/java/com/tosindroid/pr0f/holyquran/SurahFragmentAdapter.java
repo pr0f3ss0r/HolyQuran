@@ -37,6 +37,9 @@ public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdap
 
 }
 
+    public SurahFragmentAdapter() {
+
+    }
 
 
     @NonNull
@@ -76,13 +79,10 @@ public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdap
             if(filterPattern == null || filterPattern.length() == 0){
                 results.count = chapters.size();
                 results.values = chapters;
-                Log.d(TAG, "performFiltering 2.5: "+chapters);
-                Log.d(TAG, "performFiltering 2.8: "+chaptersCopy);
                 Log.d(TAG, "performFiltering 2.9: "+results.values);
             }else {
                 List<Chapters> filteredChapters = new ArrayList<>();
                 for (Chapters item: chapters){
-                    Log.d(TAG, "performFiltering 3: " +filteredChapters);
                     if (item.getSurahs().toLowerCase().contains(filterPattern)){
                         filteredChapters.add(item);
                         Log.d(TAG, "performFiltering 3.2: " +filteredChapters);
@@ -126,7 +126,11 @@ public class SurahFragmentAdapter extends RecyclerView.Adapter<SurahFragmentAdap
                         pageValue = pageValue.substring(5);
                         Log.d(TAG, pageValue);
                         pageToGo  = Integer.parseInt(pageValue);
-                        myIntent.putExtra("fatir", pageToGo);
+                        myIntent.putExtra("pageNumber", pageToGo);
+                        myIntent.putExtra("chapterName", chapterName.getText().toString());
+                        myIntent.putExtra("chapterNumber", surahNumber.getText().toString().substring(4));
+                        Log.d(TAG, surahNumber.getText().toString().substring(4));
+                        Log.d(TAG, chapterName.getText().toString());
                         v.getContext().startActivity(myIntent);
 
                     }

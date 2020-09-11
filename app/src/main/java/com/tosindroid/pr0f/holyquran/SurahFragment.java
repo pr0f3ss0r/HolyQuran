@@ -89,8 +89,7 @@ public class SurahFragment extends Fragment {
         searchView.setQueryHint("Search Surah");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+            public boolean onQueryTextSubmit(String query) { return false;
             }
 
             @Override
