@@ -19,16 +19,14 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         switch (position){
             case 0:
                 return new SurahFragment();
-            case 1:
-                return new JuzFragment();
             default:
-                return new FavoriteFragment();
+                return new JuzFragment();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 
 }

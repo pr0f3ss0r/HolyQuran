@@ -5,11 +5,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.RecyclerView;
+
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -42,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 1: {
                         tab.setText("Juz");
-                        break;
-                    }
-                    case 2: {
-                        tab.setText("Favorites");
                         break;
                     }
                 }

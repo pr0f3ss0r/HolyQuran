@@ -118,7 +118,7 @@ public class JuzFragmentAdapter extends RecyclerView.Adapter<JuzFragmentAdapter.
                     pageValue = pageValue.substring(5);
 
                     pageToGo  = Integer.parseInt(pageValue);
-                    myIntent.putExtra("fatir", pageToGo);
+                    myIntent.putExtra("pageNumber", pageToGo);
                     v.getContext().startActivity(myIntent);
 
 
