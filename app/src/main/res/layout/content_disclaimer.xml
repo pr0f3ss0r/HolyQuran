@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
+    <WebView
         android:id="@+id/disclaimer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:text="@string/disclaimer"
+        android:text="This page contains the Quran_app Privacy Policy"
         android:scrollbars="vertical"
         android:layout_margin="@dimen/_10ssp"
         android:textSize="@dimen/_15ssp"
@@ -18,4 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

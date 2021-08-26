@@ -44,12 +44,16 @@ public class GoToDialogue extends AppCompatDialogFragment {
 
                 Intent myIntent = new Intent(getContext(), QuranViewActivity.class);
 
-                if(pageToGo <= 607){
-                    myIntent.putExtra("pageNumber", pageToGo);
-                    getContext().startActivity(myIntent);
-                }else{
-                    Toast.makeText(getContext(),"Page number does not exist", Toast.LENGTH_LONG).show();
+                try {
+                    if(pageToGo <= 607){
+                        myIntent.putExtra("pageNumber", pageToGo);
+                        getContext().startActivity(myIntent);
+                    }else{
+                        Toast.makeText(getContext(),"Page number does not exist", Toast.LENGTH_LONG).show();
 
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
