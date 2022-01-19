@@ -15,7 +15,11 @@
             android:label="@string/title_activity_disclaimer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".About" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".QuranViewActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported = "false"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

@@ -98,7 +98,7 @@
         android:text="@string/privacy"
         android:textColor="@color/design_default_color_surface"
         android:textColorLink="#03A9F4"
-        android:textSize="@dimen/_30ssp"
+        android:textSize="@dimen/_40ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"

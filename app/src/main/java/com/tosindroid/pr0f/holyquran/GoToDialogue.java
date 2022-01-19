@@ -21,6 +21,7 @@ public class GoToDialogue extends AppCompatDialogFragment {
 
 
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -38,25 +39,33 @@ public class GoToDialogue extends AppCompatDialogFragment {
                     }
                 }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String toGo = gotoEditText.getText().toString();
-                int pageToGo  = Integer.parseInt(toGo);
 
-                Intent myIntent = new Intent(getContext(), QuranViewActivity.class);
+            public void onClick(DialogInterface dialog, int which) {
+
+                String toGo = gotoEditText.getText().toString();
 
                 try {
-                    if(pageToGo <= 607){
-                        myIntent.putExtra("pageNumber", pageToGo);
-                        getContext().startActivity(myIntent);
-                    }else{
-                        Toast.makeText(getContext(),"Page number does not exist", Toast.LENGTH_LONG).show();
+                    int pageToGo = Integer.parseInt(toGo);
 
+                    Intent myIntent = new Intent(getContext(), QuranViewActivity.class);
+
+                    try {
+                        if (pageToGo <= 607) {
+                            myIntent.putExtra("pageNumber", pageToGo);
+                            getContext().startActivity(myIntent);
+                        } else {
+                            Toast.makeText(getContext(), "Page number must be within 0 - 607", Toast.LENGTH_LONG).show();
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "You must enter a page number", Toast.LENGTH_LONG).show();
+                }
             }
+
         });
 
         gotoEditText = view.findViewById(R.id.goToEditText);
